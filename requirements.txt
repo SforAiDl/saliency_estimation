@@ -1,0 +1,6 @@
+# Add your own dependencies to this file.
+torch
+pandas
+numpy
+pytorch-lightning
+torchmetrics
