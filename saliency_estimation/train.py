@@ -17,8 +17,10 @@ def main(args):
         pl.seed_everything(args.seed)
 
     # DataLoaders
-    # TODO: Add dataloaders
-    train_dataloader, val_dataloader = dataloaders.build_cat2000(...)
+    if args.dataloader == "cat2000":
+        train_dataloader, val_dataloader = dataloaders.cat2000.build_cat2000(...)
+    elif args.dataloader == "mit1003":
+        train_dataloader, val_dataloader = dataloaders.mit1003.build_mit1003(...)
 
     # System
     if args.model == "DeepGaze1":
