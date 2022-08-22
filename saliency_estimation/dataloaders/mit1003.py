@@ -1,15 +1,17 @@
-import torch
 import os
+
+import torch
+from PIL import Image
 from torch.utils.data import DataLoader, Dataset, random_split
 from torchvision import transforms
-from PIL import Image
+
 
 class MIT1003(Dataset):
     """
     Dataset class for loading MIT1003 dataset
     """
 
-    def __init__(self, data_frame, root_dir, map_dir, transform = None) -> None:
+    def __init__(self, data_frame, root_dir, map_dir, transform=None) -> None:
         """
         init function
         Args:
@@ -33,17 +35,20 @@ class MIT1003(Dataset):
         """
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        
+
         img_name = os.path.join(self.root_dir, self.data_frame.iloc[idx, 0])
         image = Image.open(img_name)
-        
-        map_name = os.path.join(self.map_dir, self.data_frame.iloc[idx,1])
-        map_image =  Image.open(map_name)
-        
+
+        map_name = os.path.join(self.map_dir, self.data_frame.iloc[idx, 1])
+        map_image = Image.open(map_name)
+
         if self.transform:
             image = self.transform(image)
             map_image = self.transform(map_image)
         return image, map_image
+
+
+transform = transforms.Compose([transforms.Resize((512, 512)), transforms.ToTensor()])
 
 
 def build_mit1003(data_frame, root_dir, map_dir, transform, val_ratio, num_workers, batch_size):
