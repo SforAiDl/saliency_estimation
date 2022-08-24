@@ -46,14 +46,14 @@ class MIT300(Dataset):
 transform = transforms.Compose([transforms.Resize((512, 512)), transforms.ToTensor()])
 
 
-def build_mit300(data_frame, root_dir, transform, num_workers, batch_size):
+def build_mit300(csv_path, root_dir, transform, num_workers, batch_size):
     """
     Return training and validation dataloader
         Args:
             #TODO
     """
     # Dataset
-    dataset = MIT300(data_frame, root_dir, transform)
+    dataset = MIT300(csv_path, root_dir, transform)
     # Dataloaders
     test_dataloader = DataLoader(dataset, num_workers=num_workers, batch_size=batch_size)
     return test_dataloader
